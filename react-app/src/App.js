@@ -1,35 +1,41 @@
-import React, { Component, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import axios from 'axios';
 import './App.css';
 
-class App extends Component {
-  state = {
-    message: '',
-  };
+function App() {
+  const [contentData, setContentData] = useState(null);
 
-  componentDidMount() {
-    axios.get('https://ansal-sajan-api.contentecho.in/api/messages')
+  useEffect(() => {
+    axios.get('http://34.224.27.106:1337/api/strapis')
       .then(response => {
         if (response.data && response.data.data && response.data.data.length > 0) {
-          this.setState({ message: response.data.data[0].attributes.text });
+          setContentData(response.data.data[0].attributes);
         }
       });
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">{this.state.message}</h1>
-        </header>
-        <p className="App-intro">
-          Looks like you're all set!
-        </p>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        {contentData && (
+          <div>
+            <h2>VISHWESH RUSHI</h2>
+            <p>{contentData.vishwesh}</p>
+          </div>
+        )}
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
 export default App;
