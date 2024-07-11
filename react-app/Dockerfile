@@ -1,5 +1,5 @@
 FROM node:9.5
-WORKDIR /usr/src/app
+WORKDIR /src/app/react
 COPY . .
 RUN npm install
 RUN npm install -g react-scripts@1.1.1
